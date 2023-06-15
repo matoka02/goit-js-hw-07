@@ -17,5 +17,5 @@ const markup = galleryItems.map(({preview, original, description})=>`<li class="
 gallery.insertAdjacentHTML('beforeend', markup);
 
 
-var lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250, /*download: true*/});
+var lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250, download: true});
     
