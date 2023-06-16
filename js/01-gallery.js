@@ -18,7 +18,53 @@ console.log(basicLightbox);
 
 const gallery = document.querySelector('.gallery');
 
-// вариант создания разметки
+const markup = galleryItems.map(({preview, original, description})=>`<li class="gallery__item">
+    <a class="gallery__link" href="${original}">
+    <img
+        class="gallery__image"
+        src="${preview}"
+        data-source="${original}"
+        alt="${description}"
+    />
+    </a>
+    </li>`
+).join(``);
+
+// console.log(markup);
+
+gallery.insertAdjacentHTML('beforeend', markup);
+
+const instance = basicLightbox.create(
+    `
+  <img width="1000" height="auto" src="${original}">`,
+    {
+      onShow: (instance) => {
+        window.addEventListener('keydown', onEscKeyPress);
+      },
+      onClose: (instance) => {
+        window.removeEventListener('keydown', onEscKeyPress);
+      },
+    }
+  );  
+
+//     document.querySelector('li.gallery__item').onclick = () => {
+
+// 	basicLightbox.create(`
+// 		<img width="1400" height="900" src="${original}">
+// 	`).show()
+
+// }
+
+
+
+
+
+
+
+
+
+
+// вариант решения
 
 // const items = []
 
@@ -41,40 +87,24 @@ const gallery = document.querySelector('.gallery');
 
 // gallery.append(...items);
 
-const markup = galleryItems.map(({preview, original, description})=>`<li class="gallery__item">
-    <a class="gallery__link" href="${original}">
-    <img
-        class="gallery__image"
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
-    />
-    </a>
-    </li>`
-).join(``);
+// gallery.addEventListener('click', evt => {
+//     evt.preventDefault();
+// 	// console.log(evt.target.nodeName);
+//     if (evt.target.nodeName !== 'IMG') {
+// 		return;
+// 	};
 
-// console.log(markup);
+//     const selectedImage = evt.target.getAttribute('data-source');
 
-gallery.insertAdjacentHTML('beforeend', markup);
+//     const instance = basicLightbox.create(`
+//     <img src="${selectedImage}" width="800" height="600">`);
 
-gallery.addEventListener('click', evt => {
-    evt.preventDefault();
-	// console.log(evt.target.nodeName);
-    if (evt.target.nodeName !== 'IMG') {
-		return;
-	};
-
-    const selectedImage = evt.target.getAttribute('data-source');
-
-    const instance = basicLightbox.create(`
-    <img src="${selectedImage}" width="800" height="600">`);
-
-    instance.show();
+//     instance.show();
     
-    gallery.addEventListener('keydown', evt => {
-		if (evt.key === 'Escape') {
-            console.log(evt.key);
-			instance.close()
-		};
-	});
-});
+//     gallery.addEventListener('keydown', evt => {
+// 		if (evt.key === 'Escape') {
+//             console.log(evt.key);
+// 			instance.close()
+// 		};
+// 	});
+// });
