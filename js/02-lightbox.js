@@ -6,8 +6,8 @@ console.log(galleryItems);
 const gallery = document.querySelector('.gallery');
 
 const markup = galleryItems.map(({preview, original, description})=>`<li class="gallery__item">
-    <a class="gallery__link" href="${original}">
-    <img class="gallery__image" src="${preview}" alt="${description}" />
+    <a class="gallery__link" href="${original}" >
+    <img class="gallery__image" src="${preview}" alt="${description}" title="${description}" />
     </a>
     </li>`
 ).join(``);
@@ -16,6 +16,8 @@ const markup = galleryItems.map(({preview, original, description})=>`<li class="
 
 gallery.insertAdjacentHTML('beforeend', markup);
 
-
-var lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250, download: true});
-    
+new SimpleLightbox('.gallery a', { 
+    captionPosition: 'bottom',
+    captionDelay: 250, 
+    download: false
+});
